@@ -1,0 +1,214 @@
+<div class="background">
+
+    <div class="container">
+        <nav class="navbar navbar-expand-lg ">
+          <a class="navbar-brand">
+            <img src="../assets/images/libroBlanco.svg" height="50px" width="45px">  
+          </a>  
+          
+          <a class="navbar-brand" style="color: white;" href="homePage">Biblioteca</a>
+        
+          <div class="links">
+            <a class="spacingMenu" href="userManagement">User Management</a>
+            <a class="spacingMenu" href="mbManagement">Books & Magazines</a>
+            <a class="spacingMenu" href="#">About</a>
+          </div>
+        </nav>
+    </div>
+  </div>
+  
+  <div class="split left">
+   
+  
+      <div class="limiter">
+        <div class="container-table100">
+          <div class="wrap-table100">
+              <div class="table">
+      
+                <div class="row header">
+                  <div class="cell">
+                    Title
+                  </div>
+                  <div class="cell">
+                    Author
+                  </div>
+                  <div class="cell">
+                    Edition
+                  </div>
+                  <div class="cell">
+                    Type
+                  </div>
+                  <div class="cell">
+                  </div>
+                  <div class="cell">
+                  </div>
+                </div>
+  
+                <div class="row" *ngFor="let emp of bmService.boms">
+                  <div class="cell" data-title="Title" >
+                    {{emp.title}}
+                  </div>
+                  <div class="cell" data-title="Author">
+                    {{emp.author}}
+                  </div>
+                  <div class="cell" data-title="Copies">
+                    {{emp.copies}}
+                  </div>
+                  <div class="cell" data-title="Published">
+                    {{emp.type}}
+                  </div>
+                  <div class="cell" data-title="">
+                    <button type="button" class="btn btn-outline-success" (click)="onEdit(emp)">Edit</button>
+                    <child-component [showMePartially]="showVar"></child-component>
+                  </div>
+                  <div class="cell" data-title="">
+                    <button type="button" class="btn btn-outline-danger" (click)="onDelete(emp._id,bmForm)">Delete</button>
+                  </div>
+                </div>  
+              </div>
+          </div>
+        </div>
+      </div>
+  
+  
+   
+  
+    <!--===============================================================================================-->	
+    <script src="../../assets/table/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../assets/table/vendor/bootstrap/js/popper.js"></script>
+    <script src="../../assets/table/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../assets/table/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../assets/table/js/main.js"></script>
+    <script>
+    $('.js-pscroll').each(function(){
+      var ps = new PerfectScrollbar(this);
+  
+      $(window).on('resize', function(){
+        ps.update();
+      })
+    });
+    </script>
+  </div>
+  
+  <div class="split right">
+  
+    <div class="welcome">
+  
+      <div class="limiter ">
+          <div class="container-login100">
+              <div class="wrap-login100 p-t-50 p-b-90">
+                  <form #bmForm = "ngForm" class="login100-form validate-form flex-sb flex-w" (ngSubmit)="onSubmit(bmForm)" >
+                      <span class="login100-form-title p-b-51">
+                          Add Entry
+                      </span>
+                      <span class="login100-form-little p-b-51">
+                        click once to choose between a book or magazine
+                    </span>
+
+                      <span class="login100-form-title p-b-51">
+                        
+                            <div id="myDIV" class="d-flex justify-content-around">
+                                <button type="button" class="btn btn-outline-primary btn-lg" (click)="bookType(typB)">Book</button>
+                                
+                                <button type="button" class="btn btn-outline-primary btn-lg" (click)="magazineType(typM)">Magazine</button>
+                            </div>
+
+                      </span>
+                        
+                      <input class="input100" type="hidden" name="_id" #_id="ngModel" [(ngModel)]="bmService.selectedBom._id" placeholder="_id">
+                      <input id="mbType" class="input100" type="hidden" name="type" #type="ngModel" [(ngModel)]="bmService.selectedBom.type" placeholder="type">
+  
+                      <div class="wrap-input100 validate-input m-b-16" data-validate = "Title is required">
+                          <input class="input100" type="text" name="title" #title="ngModel" [(ngModel)]="bmService.selectedBom.title" placeholder="Title">
+                          <span class="focus-input100"></span>
+                      </div>
+                              
+                      <div class="wrap-input100 validate-input m-b-16" data-validate = "Author is required">
+                          <input class="input100" type="text" name="author" #author="ngModel" [(ngModel)]="bmService.selectedBom.author" placeholder="Author">
+                          <span class="focus-input100"></span>
+                      </div>
+                      
+                      <div class="wrap-input100 validate-input m-b-16" data-validate = "Edition is required">
+                          <input class="input100" type="text" name="edition" #edition="ngModel" [(ngModel)]="bmService.selectedBom.edition" placeholder="Edition">
+                          <span class="focus-input100"></span>
+                      </div>
+                      
+                      <div class="wrap-input100 validate-input m-b-16" data-validate = "Key Words is required">
+                          <input class="input100" type="text" name="key_words" #key_words="ngModel" [(ngModel)]="bmService.selectedBom.key_words" placeholder="Key Words">
+                          <span class="focus-input100"></span>
+                      </div>
+                      
+                      <div class="wrap-input100 validate-input m-b-16" data-validate = "Description is required">
+                          <input class="input100" type="text" name="description" #description="ngModel" [(ngModel)]="bmService.selectedBom.description" placeholder="Description">
+                          <span class="focus-input100"></span>
+                      </div>
+                      
+                      <div class="wrap-input100 validate-input m-b-16" data-validate = "Frequency is required">
+                          <input class="input100" type="{{typeInput}}" name="frequency" #frequency="ngModel" [(ngModel)]="bmService.selectedBom.frequency" placeholder="Frequency">
+                          <span class="focus-input100"></span>
+                      </div>
+
+                      <div class="wrap-input100 validate-input m-b-16" data-validate = "Theme is required">
+                        <input class="input100" type="text" name="theme" #theme="ngModel" [(ngModel)]="bmService.selectedBom.theme" placeholder="Theme">
+                        <span class="focus-input100"></span>
+                      </div>
+
+                      <div class="wrap-input100 validate-input m-b-16" data-validate = "Published is required">
+                        <input class="input100" type="text" name="published" #published="ngModel" [(ngModel)]="bmService.selectedBom.published" placeholder="Published">
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-16" data-validate = "Copies is required">
+                        <input class="input100" type="text" name="copies" #copies="ngModel" [(ngModel)]="bmService.selectedBom.copies" placeholder="Copies">
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-16" data-validate = "Avalable is required">
+                        <input class="input100" type="text" name="available" #available="ngModel" [(ngModel)]="bmService.selectedBom.available" placeholder="Available">
+                        <span class="focus-input100"></span>
+                    </div>
+  
+                      <div class="container-login100-form-btn m-t-17">
+                          <button type="submit" class="login100-form-btn" [disabled]="!bmForm.valid">
+                              Submit
+                          </button>
+                      </div>
+  
+                      <div class="container-login100-form-btn m-t-17">
+                          <button type="button" class="login100-form-btn" (click)="resetForm(bmForm)">
+                              Reset
+                          </button>
+                      </div>
+  
+                  </form>
+              </div>
+          </div>
+      </div>
+      
+  
+      <div id="dropDownSelect1"></div>
+      
+  <!--===============================================================================================-->
+      <script src="../../vendor/jquery/jquery-3.2.1.min.js"></script>
+  <!--===============================================================================================-->
+      <script src="../../vendor/animsition/js/animsition.min.js"></script>
+  <!--===============================================================================================-->
+      <script src="../../vendor/bootstrap/js/popper.js"></script>
+      <script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
+  <!--===============================================================================================-->
+      <script src="../../vendor/select2/select2.min.js"></script>
+  <!--===============================================================================================-->
+      <script src="../../vendor/daterangepicker/moment.min.js"></script>
+      <script src="../../vendor/daterangepicker/daterangepicker.js"></script>
+  <!--===============================================================================================-->
+      <script src="../../vendor/countdowntime/countdowntime.js"></script>
+  <!--===============================================================================================-->
+    <script src="../Scripts/main.js"></script>
+    
+  </div>
+
+        
+  </div>

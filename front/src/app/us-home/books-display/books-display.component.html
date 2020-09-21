@@ -1,0 +1,105 @@
+<div class="background">
+
+  <div class="container">
+      <nav class="navbar navbar-expand-lg ">
+        <a class="navbar-brand">
+          <img src="../../assets/images/libroBlanco.svg" height="50px" width="45px">  
+        </a>  
+        
+        <a class="navbar-brand" style="color: white;" href="usHome">Biblioteca</a>
+      
+        <div class="links">
+          <a class="spacingMenu" href="booksDisplay">Books</a>
+          <a class="spacingMenu" href="magazineDisplay">Magazines</a>
+          <a class="spacingMenu" href="">About</a>
+        </div>
+
+      </nav>
+  </div>
+
+</div>
+
+<div class="welcome">
+
+  <div class="limiter">
+    <div class="container-table100">
+      <div class="wrap-table100">
+          <div class="table">
+  
+            <div class="row header">
+              <div class="cell">
+                Title
+              </div>
+              <div class="cell">
+                Author
+              </div>
+              <div class="cell">
+                Published
+              </div>
+              <div class="cell">
+                Type
+              </div>
+              <div class="cell">
+                Available
+              </div>
+              <div class="cell">
+              </div>
+              <div class="cell">
+              </div>
+            </div>
+
+            <div class="row" *ngFor="let bom of bmService.boms">
+              <div class="cell" data-title="User" >
+                {{bom.title}}
+              </div>
+              <div class="cell" data-title="Name">
+                {{bom.author}}
+              </div>
+              <div class="cell" data-title="Carnet">
+                {{bom.published}}
+              </div>
+              <div class="cell" data-title="Rol">
+                {{bom.type}}
+              </div>
+              <div class="cell" data-title="Rol">
+                {{bom.available}}
+              </div>
+              <div class="cell" data-title="">
+                <button type="submit" class="btn btn-outline-success" (click)="onBorrow(bom._id)">Borrow</button>
+                <child-component [showMePartially]="showVar"></child-component>
+              </div>
+              <div class="cell" data-title="">
+                <button type="button" class="btn btn-outline-danger" (click)="onDelete(emp._id,managementForm)">Return</button>
+              </div>
+            </div>  
+          </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+<!--===============================================================================================-->	
+<script src="../../assets/table/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="../../assets/table/vendor/bootstrap/js/popper.js"></script>
+<script src="../../assets/table/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="../../assets/table/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="../../assets/table/js/main.js"></script>
+<script>
+$('.js-pscroll').each(function(){
+  var ps = new PerfectScrollbar(this);
+
+  $(window).on('resize', function(){
+    ps.update();
+  })
+});
+</script>
+
+  
+
+    
+</div>
